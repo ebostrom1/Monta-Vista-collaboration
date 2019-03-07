@@ -1,19 +1,23 @@
 public class ElectionResults {
     private double votes_dem, votes_gop,total_votes,per_dem,per_gop, per_point;
-    private String diff, state_abbr,county_name;
-    private int combined_fipsl;
+    private String state_abbr,county_name;
+    private int diff, combined_fipsl;
 
-    public ElectionResults(double votes_dem, double votes_gop, double total_votes, double per_dem, double per_gop, double per_point, String diff, String state_abbr, String county_name, int combined_fipsl) {
-        this.votes_dem = votes_dem;
-        this.votes_gop = votes_gop;
-        this.total_votes = total_votes;
-        this.per_dem = per_dem;
-        this.per_gop = per_gop;
-        this.per_point = per_point;
-        this.diff = diff;
-        this.state_abbr = state_abbr;
-        this.county_name = county_name;
-        this.combined_fipsl = combined_fipsl;
+    public ElectionResults(String[] fields) {
+        for (int i = 0; i < fields.length; i++) {
+           fields[i] = fields[i].replaceAll(",","");
+        }
+        System.out.println(fields[1]);
+        this.votes_dem = Double.parseDouble(fields[1]);
+        this.votes_gop = Double.parseDouble(fields[2]);
+        this.total_votes = Double.parseDouble(fields[3]);
+        this.per_dem = Double.parseDouble(fields[4]);
+        this.per_gop = Double.parseDouble(fields[5]);
+        this.diff = Integer.parseInt(fields[6]);
+        this.per_point = Double.parseDouble(fields[7]);
+        this.state_abbr = fields[8];
+        this.county_name = fields[9];
+        this.combined_fipsl = Integer.parseInt(fields[10]);
     }
 
     public void setVotes_dem(double votes_dem) {
@@ -40,7 +44,7 @@ public class ElectionResults {
         this.per_point = per_point;
     }
 
-    public void setDiff(String diff) {
+    public void setDiff(int diff) {
         this.diff = diff;
     }
 
@@ -80,7 +84,7 @@ public class ElectionResults {
         return per_point;
     }
 
-    public String getDiff() {
+    public int getDiff() {
         return diff;
     }
 

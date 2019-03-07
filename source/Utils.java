@@ -24,27 +24,28 @@ public class Utils {
         String[] unparsedElectionResults = input.split("\n");
         ArrayList<ElectionResults> electionResults = new ArrayList<>();
         for(int i = 1; i < unparsedElectionResults.length; i++){
-            unparsedElectionResults[i].replaceAll("%", "");
+            unparsedElectionResults[i] = unparsedElectionResults[i].replaceAll("%", "");
             ElectionResults results = new ElectionResults(split(unparsedElectionResults[i]));
             electionResults.add(results);
         }
         return electionResults;
     }
     private static String RemoveCandQ(String input){
-        input.replaceAll("\"", "" );
+        input = input.replaceAll("\"", "" );
         return input.replaceAll(",","");
     }
+
     private static String[] split(String text){
         String[] output = new String [11];
         int a =0;
         for (int i = 0; i < 6; i++) {
-           output[i]= text.substring(a,text.indexOf(",",a));
-           a = text.indexOf(",",a);
+           output[i]= text.substring(a,text.indexOf(",",a+1));
+           a = text.indexOf(",",a+1);
         }
         int b = text.length();
-        for (int i = 11; i > 6; i--) {
-            output[i]= text.substring(text.lastIndexOf(",",b),b);
-            a = text.lastIndexOf(",",b);
+        for (int i = 10; i > 6; i--) {
+            output[i]= text.substring(text.lastIndexOf(",",b-1),b);
+            b = text.lastIndexOf(",",b-1);
         }
         output[6] = RemoveCandQ(text.substring(a,b));
         return output;
