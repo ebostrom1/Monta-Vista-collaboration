@@ -20,24 +20,33 @@ public class Utils {
         return output.toString();
     }
     //,votes_dem,votes_gop,total_votes,per_dem,per_gop,diff,per_point_diff,state_abbr,county_name,combined_fips
-    public ArrayList<ElectionResults>  parse2016PresidentialResults(String input){
+    public static ArrayList<ElectionResults>  parse2016PresidentialResults(String input){
         String[] unparsedElectionResults = input.split("\n");
         ArrayList<ElectionResults> electionResults = new ArrayList<>();
         for(int i = 1; i < unparsedElectionResults.length; i++){
-            String[] fields = unparsedElectionResults[i].split(",");
-            double votes_dem = Double.parseDouble(fields[1].trim());
-            double votes_gop = Double.parseDouble(fields[2].trim());
-            double total_votes = Double.parseDouble(fields[3].trim());
-            double per_dem = Double.parseDouble(fields[4].trim());
-            double per_gop = Double.parseDouble(fields[5].trim());
-            String diff = fields[6].trim();
-            double per_point = Double.parseDouble(fields[7].trim());
-            String state_abbr = fields[8].trim();
-            String county_name = fields[9].trim();
-            int combined_fips = Integer.parseInt(fields[10].trim());
-            ElectionResults results = new ElectionResults(votes_dem, votes_gop, total_votes, per_dem, per_gop, per_point, diff, state_abbr,county_name,combined_fips);
+            unparsedElectionResults[i].replaceAll("%", "");
+            ElectionResults results = new ElectionResults(split(unparsedElectionResults[i]));
             electionResults.add(results);
         }
         return electionResults;
+    }
+    private static String RemoveCandQ(String input){
+        input.replaceAll("\"", "" );
+        return input.replaceAll(",","");
+    }
+    private static String[] split(String text){
+        String[] output = new String [11];
+        int a =0;
+        for (int i = 0; i < 6; i++) {
+           output[i]= text.substring(a,text.indexOf(",",a));
+           a = text.indexOf(",",a);
+        }
+        int b = text.length();
+        for (int i = 11; i > 6; i--) {
+            output[i]= text.substring(text.lastIndexOf(",",b),b);
+            a = text.lastIndexOf(",",b);
+        }
+        output[6] = RemoveCandQ(text.substring(a,b));
+        return output;
     }
 }
