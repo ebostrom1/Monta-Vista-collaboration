@@ -7,17 +7,9 @@ public class ElectionResults {
         for (int i = 0; i < fields.length; i++) {
            fields[i] = fields[i].replaceAll(",","");
         }
-        System.out.println(fields[1]);
         this.votes_dem = Double.parseDouble(fields[1]);
         this.votes_gop = Double.parseDouble(fields[2]);
         this.total_votes = Double.parseDouble(fields[3]);
-        this.per_dem = Double.parseDouble(fields[4]);
-        this.per_gop = Double.parseDouble(fields[5]);
-        this.diff = Integer.parseInt(fields[6]);
-        this.per_point = Double.parseDouble(fields[7]);
-        this.state_abbr = fields[8];
-        this.county_name = fields[9];
-        this.combined_fipsl = Integer.parseInt(fields[10]);
     }
 
     public void setVotes_dem(double votes_dem) {
