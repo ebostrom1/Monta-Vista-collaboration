@@ -18,55 +18,41 @@ public class Utils {
         }
         return output.toString();
     }
-    public static ArrayList<ElectionResults>  parse2016PresidentialResults(String input){
-        ArrayList<ElectionResults> electionResults = new ArrayList<>();
-        for( String[] line : primaryParse(input,11)){
-            ElectionResults results = new ElectionResults(line);
-            electionResults.add(results);
+    public static ArrayList<EducationData> parseEducationData(String input){
+        ArrayList<EducationData> data = new ArrayList<>();
+        for(String[] fields : primaryParse(input)){
+            data.add(new EducationData(fields));
         }
-        return electionResults;
+        return data;
     }
-    public static ArrayList<EducationData>  parseEducationData(String input){
-        ArrayList<EducationData> educationResults = new ArrayList<>();
-        for( String[] line : primaryParse(input,47)){
-            EducationData results = new EducationData(line);
-            educationResults.add(results);
+    public static ArrayList<ElectionData> parseElectionResults(String input){
+        ArrayList<ElectionData> data = new ArrayList<>();
+        for(String[] fields : primaryParse(input)){
+            data.add(new ElectionData(fields));
         }
-        return educationResults;
+        return data;
     }
-    public static ArrayList<UnemplymentData>  parseUnemploymentData(String input){
-        ArrayList<UnemplymentData> UnemploymentResults = new ArrayList<>();
-        for( String[] line : primaryParse(input,56)){
-            UnemplymentData results = new UnemplymentData(line);
-            UnemploymentResults.add(results);
+
+    public static ArrayList<UnemploymentData> parseUnemploymentData(String input){
+        ArrayList<UnemploymentData> data = new ArrayList<>();
+        for(String[] fields : primaryParse(input)){
+            data.add(new UnemploymentData(fields));
         }
-        return UnemploymentResults;
+        return data;
     }
-    //,votes_dem,votes_gop,total_votes,per_dem,per_gop,diff,per_point_diff,state_abbr,county_name,combined_fips
-    private static String[][] primaryParse(String input , int fields){
-        String[] unparsedResults = input.split("\n");
-        String[][]parsedData = new String[unparsedResults.length][fields];
-        for(int i = 1; i < unparsedResults.length; i++){
-            unparsedResults[i] = removeUnwantedChars(unparsedResults[i]);
-            unparsedResults[i] = removeUnwantedCommas( unparsedResults[i]);
-            parsedData[i] = split(unparsedResults[i], fields);
+
+    private static ArrayList<String[]> primaryParse(String input){
+        input = removeUnwantedChars(input);
+        input = removeUnwantedCommas(input);
+        String[] line = input.split("\n");
+        ArrayList<String[]> output = new ArrayList<>();
+        for(int i = 1; i < line.length; i++){
+            output.add(line[i].split(","));
         }
-        return parsedData;
+        return output;
     }
     private static String removeUnwantedChars(String input){
         return input.replaceAll("%","").replaceAll(" ","");
-    }
-
-    private static String[] split(String text, int numOfFields){
-        String[] output = new String [numOfFields];
-        int a = -1;
-        for (int i = 0; i < numOfFields; i++) {
-            int end = text.indexOf(",",a+1);
-            if(text.indexOf(",",a+1) == -1) end = text.length();
-            output[i]= text.substring(a+1,end);
-            a = text.indexOf(",",a+1);
-        }
-        return output;
     }
     private static String removeUnwantedCommas(String line){
         boolean inQuote = false;

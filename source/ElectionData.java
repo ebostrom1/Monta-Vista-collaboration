@@ -1,15 +1,27 @@
-public class ElectionResults {
+public class ElectionData implements Data{
     private double votes_dem, votes_gop,total_votes,per_dem,per_gop, per_point;
-    private String state_abbr,county_name;
+    private String state,county;
     private int diff, combined_fipsl;
 
-    public ElectionResults(String[] fields) {
-        for (int i = 0; i < fields.length; i++) {
-           fields[i] = fields[i].replaceAll(",","");
-        }
+    public ElectionData(String[] fields) {
+        this.county = fields[10];
+        this.state = fields[9];
         this.votes_dem = Double.parseDouble(fields[1]);
         this.votes_gop = Double.parseDouble(fields[2]);
         this.total_votes = Double.parseDouble(fields[3]);
+    }
+
+    @Override
+    public Object getSubClass() {
+        return this;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public String getCounty() {
+        return county;
     }
 
     public void setVotes_dem(double votes_dem) {
@@ -38,14 +50,6 @@ public class ElectionResults {
 
     public void setDiff(int diff) {
         this.diff = diff;
-    }
-
-    public void setState_abbr(String state_abbr) {
-        this.state_abbr = state_abbr;
-    }
-
-    public void setCounty_name(String county_name) {
-        this.county_name = county_name;
     }
 
     public void setCombined_fipsl(int combined_fipsl) {
@@ -80,21 +84,13 @@ public class ElectionResults {
         return diff;
     }
 
-    public String getState_abbr() {
-        return state_abbr;
-    }
-
-    public String getCounty_name() {
-        return county_name;
-    }
-
     public int getCombined_fipsl() {
         return combined_fipsl;
     }
 
     @Override
     public String toString() {
-        return "ElectionResults{" +
+        return "ElectionData{" +
                 "votes_dem=" + votes_dem +
                 ", votes_gop=" + votes_gop +
                 ", total_votes=" + total_votes +
@@ -102,8 +98,8 @@ public class ElectionResults {
                 ", per_gop=" + per_gop +
                 ", per_point=" + per_point +
                 ", diff='" + diff + '\'' +
-                ", state_abbr='" + state_abbr + '\'' +
-                ", county_name='" + county_name + '\'' +
+                ", state_abbr='" + state + '\'' +
+                ", county_name='" + county + '\'' +
                 ", combined_fipsl=" + combined_fipsl +
                 '}';
     }

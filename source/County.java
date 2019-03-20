@@ -1,18 +1,34 @@
-import java.util.ArrayList;
-
 public class County {
-    private int FPSnum;
     private String name, State;
     private EducationData edData;
-    private UnemplymentData jobData;
-    private ElectionResults electData;
+    private UnemploymentData jobData;
+    private ElectionData electData;
 
-    public County(int FPSnum, String name, String state, EducationData edData, UnemplymentData jobData, ElectionResults electData) {
-        this.FPSnum = FPSnum;
+    public County(String name, String state) {
         this.name = name;
         State = state;
-        this.edData = edData;
-        this.jobData = jobData;
-        this.electData = electData;
     }
+
+    public void addData(EducationData educationData){
+        this.edData = educationData;
+    }
+    public void addData(ElectionData electionData){
+        this.electData =electionData;
+    }
+    public void addData(UnemploymentData unemploymentData){
+        this.jobData = unemploymentData;
+    }
+
+    public EducationData getEdData() {
+        return edData;
+    }
+
+    public UnemploymentData getJobData() {
+        return jobData;
+    }
+
+    public ElectionData getElectData() {
+        return electData;
+    }
+
 }
