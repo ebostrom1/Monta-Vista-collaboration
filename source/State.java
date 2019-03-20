@@ -12,15 +12,6 @@ public class State {
         counties.put(county, newCounty);
     }
 
-    public void addData(ElectionData electionData){
-        if (counties.containsValue(electionData.getCounty())) {
-            counties.get(electionData.getCounty()).addData(electionData); {
-            }
-        }else {
-            createNewCounty(electionData.getCounty());
-            counties.get(electionData.getCounty()).addData(electionData);
-        }
-    }
     public void addData(UnemploymentData unemploymentData){
         if (counties.containsValue(unemploymentData.getCounty())) {
             counties.get(unemploymentData.getCounty()).addData(unemploymentData); {
@@ -30,5 +21,16 @@ public class State {
             counties.get(unemploymentData.getCounty()).addData(unemploymentData);
         }
     }
-    
+    public void addData(EducationData educationData){
+        if (counties.containsValue(educationData.getCounty())) {
+            counties.get(educationData.getCounty()).addData(educationData); {
+            }
+        }else {
+            createNewCounty(educationData.getCounty());
+            counties.get(educationData.getCounty()).addData(educationData);
+        }
+    }
+    public HashMap<String, County> getCounties(){
+        return counties;
+    }
 }

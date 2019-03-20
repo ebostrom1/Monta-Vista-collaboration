@@ -2,21 +2,24 @@ public class County {
     private String name, State;
     private EducationData edData;
     private UnemploymentData jobData;
-    private ElectionData electData;
+    public boolean complete;
 
     public County(String name, String state) {
         this.name = name;
         State = state;
+        complete = false;
     }
 
     public void addData(EducationData educationData){
         this.edData = educationData;
     }
-    public void addData(ElectionData electionData){
-        this.electData =electionData;
-    }
     public void addData(UnemploymentData unemploymentData){
         this.jobData = unemploymentData;
+        checkIfComplete();
+    }
+
+    private void checkIfComplete() {
+        if(edData != null && jobData != null) complete = true;
     }
 
     public EducationData getEdData() {
@@ -27,8 +30,5 @@ public class County {
         return jobData;
     }
 
-    public ElectionData getElectData() {
-        return electData;
-    }
 
 }

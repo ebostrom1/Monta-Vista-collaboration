@@ -25,13 +25,6 @@ public class Utils {
         }
         return data;
     }
-    public static ArrayList<ElectionData> parseElectionResults(String input){
-        ArrayList<ElectionData> data = new ArrayList<>();
-        for(String[] fields : primaryParse(input)){
-            data.add(new ElectionData(fields));
-        }
-        return data;
-    }
 
     public static ArrayList<UnemploymentData> parseUnemploymentData(String input){
         ArrayList<UnemploymentData> data = new ArrayList<>();
@@ -68,4 +61,13 @@ public class Utils {
         }
         return line;
     }
+
+    public int Average(int[] data){
+        int count = 0;
+        for(int i : data){
+            count+= i;
+        }
+        return count/data.length;
+    }
+
 }

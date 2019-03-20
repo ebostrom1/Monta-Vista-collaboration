@@ -1,4 +1,4 @@
-public class EducationData implements Data{
+public class EducationData{
     private double percentNoHighSchool, percentHighSchool, percentSomeCollege, percentBachloresOrHigher;
     private String state, county;
 
@@ -12,10 +12,7 @@ public class EducationData implements Data{
         this.county = Fields[3];
     }
 
-    @Override
-    public Object getSubClass() {
-        return this;
-    }
+    public EducationData(){}
 
     public double getPercentNoHighSchool() {
         return percentNoHighSchool;

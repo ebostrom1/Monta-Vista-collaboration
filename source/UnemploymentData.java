@@ -1,4 +1,4 @@
-public class UnemploymentData implements Data{
+public class UnemploymentData{
     private int totalLaborForce, employed, unemployed;
     private double unemploymentRate;
     private String state, county;
@@ -11,10 +11,8 @@ public class UnemploymentData implements Data{
         this.unemployed = Integer.parseInt(fields[48]);
         this.unemploymentRate = Double.parseDouble(fields[49]);
     }
+    public UnemploymentData(){
 
-    @Override
-    public Object getSubClass() {
-        return this;
     }
 
     public String getState() {
