@@ -1,6 +1,11 @@
+import org.w3c.dom.css.CSSCharsetRule;
+
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Utils {
@@ -18,31 +23,63 @@ public class Utils {
         }
         return output.toString();
     }
-    public static ArrayList<EducationData> parseEducationData(String input){
-        ArrayList<EducationData> data = new ArrayList<>();
-        for(String[] fields : primaryParse(input)){
-            data.add(new EducationData(fields));
+    public static ArrayList<Year> parse(String fileName, String DataType){
+        String CSVtext = readFileAsString(fileName);
+        if(DataType.equals("Education")){
+            return parseEducationData(CSVtext);
         }
-        return data;
+        if(DataType.equals("Unemployment")){
+            return parseUnemploymentData(CSVtext);
+        }
+        if(DataType.equals("Crime")){
+            return parseCrimeData(CSVtext);
+        }
+        return null;
+    }
+    private static ArrayList<Year> parseEducationData(String input){
+        ArrayList<Year> output = new ArrayList<>();
+        for (String[] arr: primaryParse(input, new int[]{6})) {
+            for (int i = 0; i < arr.length; i++) {
+                String s = arr[i];
+
+            }
+
+        }
     }
 
-    public static ArrayList<UnemploymentData> parseUnemploymentData(String input){
-        ArrayList<UnemploymentData> data = new ArrayList<>();
-        for(String[] fields : primaryParse(input)){
-            data.add(new UnemploymentData(fields));
+    private static String[] parseUnemploymentData(String input){
+        ArrayList<Year> output = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            output.add(new Year(2016+i, "Unemployment"));
         }
-        return data;
+        for (String[] arr: primaryParse(input, new int[]{1,2,6})) {
+
+            output.add()
+
+        }
+    }
+    private static ArrayList<Year> parseCrimeData(String input){
+
     }
 
-    private static ArrayList<String[]> primaryParse(String input){
+    private static String[][] primaryParse(String input,int priorityIndex[]){
         input = removeUnwantedChars(input);
-        input = removeUnwantedCommas(input);
         String[] line = input.split("\n");
-        ArrayList<String[]> output = new ArrayList<>();
+        String[][] output = new String[line.length][3];
         for(int i = 1; i < line.length; i++){
-            output.add(line[i].split(","));
+            line[i] = removeUnwantedCommas(line[i]);
+            String[] fields = line[i].split(",");
+            for (int j = 0; j < fields.length; j++) {
+                for (int k = 0; k < priorityIndex.length; k++) {
+                    if(j == priorityIndex[k]){
+                        output[i][k]= fields[j];
+                    }
+
+                }
+            }
         }
         return output;
+
     }
     private static String removeUnwantedChars(String input){
         return input.replaceAll("%","").replaceAll(" ","");
@@ -58,16 +95,47 @@ public class Utils {
                  inQuote = false;
                  line = line.replaceAll(line.substring(startIndex, i+1) , line.substring(startIndex, i+1).replaceAll(",", "").replaceAll("\"",""));
              }
+             if(line.contains(",,")) return null;
         }
         return line;
     }
 
-    public int Average(int[] data){
-        int count = 0;
-        for(int i : data){
-            count+= i;
+    public static void WriteCSVfile(String fileName, String body){
+        File file = new File(fileName);
+        try{
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            BufferedWriter writer = new BufferedWriter(fw);
+            writer.write(body);
+            writer.close();
+            fw.close();
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        return count/data.length;
+
     }
+    public static String generateTableTemplet(int[] numYears, String crimeFile, String employmentFile, String educationFile){
+        String output = "";
+        for (int i = 0; i < numYears.length; i++) {
+            for (int j = 0; j < 12; j++) {
+                if(j == 1) output+=("January " + numYears + ","+ "" "\n");
+                if(j == 2) output+=("Febuary " + numYears+ "\n");
+                if(j == 3) output+=("March " + numYears+ "\n");
+                if(j == 4) output+=("April " + numYears+ "\n");
+                if(j == 5) output+=("May " + numYears+ "\n");
+                if(j == 6) output+=("June " + numYears+ "\n");
+                if(j == 7) output+=("July " + numYears+ "\n");
+                if(j == 8) output+=("August " + numYears+ "\n");
+                if(j == 9) output+=("September " + numYears+ "\n");
+                if(j == 10) output+=("October " + numYears+ "\n");
+                if(j == 11) output+=("November " + numYears+ "\n");
+                if(j == 12) output+=("December " + numYears+ "\n");
+            }
+
+        }
+    }
+
 
 }
