@@ -1,16 +1,49 @@
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class DataManager {
-    ArrayList<CSVLine> CSVLine = new ArrayList<>();
+    HashMap<Time, CSVLine> CSVData;
 
     public DataManager() {
+        CSVData = new HashMap<>();
     }
-    public void addData(String fileName, String dataType){
-        for(Year y: Utils.parse(fileName, dataType)){
-            years.add(y);
+    public void addUnemployment(ArrayList<Unemployment> unemploymentData){
+        for(Unemployment unemployment:unemploymentData) {
+            if (!CSVData.containsKey(unemployment.getTime())){
+                CSVData.put(unemployment.getTime(), new CSVLine(unemployment.getTime()));
+            }
+            CSVData.get(unemployment.getTime()).addUnemployment(unemployment.getUnemploymentRate());
         }
+    }
+
+    public void addCrime(ArrayList<Time> crimeRecord){
+        for(Time t: crimeRecord){
+            if(!CSVData.containsKey(t)){
+                CSVData.put(t, new CSVLine(t));
+            }
+            CSVData.get(t).addCrime();
+        }
+    }
+    public void setEducationData(Time time, int numberOfStudentsWithHighSchoolEducation){
+        if(!CSVData.containsKey(time)){
+            CSVData.put(time, new CSVLine(time));
+        }
+        CSVData.get(time).setEducation(numberOfStudentsWithHighSchoolEducation);
+    }
+    public String printSortCSV(){
+        StringBuilder output = new StringBuilder();
+        for (int i = 0; i < CSVData.size(); i++) {
+            Time smallestTime = new Time();
+            for (Map.Entry<Time, CSVLine> line : CSVData.entrySet()) {
+                if (line.getValue().getTime().comparableTime()<smallestTime.comparableTime()){
+                    smallestTime = line.getValue().getTime();
+                }
+            }
+            output.append(CSVData.remove(smallestTime));
+        }
+        return output.toString();
     }
 
 
