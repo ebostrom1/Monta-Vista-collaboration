@@ -29,7 +29,7 @@ public class DataManager {
     public void setEducationData(int year, double numberOfStudentsWithHighSchoolEducation){
         for(Map.Entry<Time ,CSVLine> entry: CSVData.entrySet()){
             if (entry.getKey().getYear() == year)
-                entry.getValue().setEducation(numberOfStudentsWithHighSchoolEducation);
+                CSVData.get(entry.getKey()).setEducation(numberOfStudentsWithHighSchoolEducation);
         }
     }
 

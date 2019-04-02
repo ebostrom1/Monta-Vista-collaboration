@@ -32,7 +32,7 @@ public class Utils {
         for (String line : lines) {
             String[] fields= line.split(",");
             int year = Integer.parseInt(fields[0]);
-            for (int i = 0; i < fields.length; i++) {
+            for (int i = 1; i < fields.length; i++) {
                 String month = "";
                 if(i == 1) month=("Jan");
                 if(i == 2) month=("Feb");
@@ -62,9 +62,7 @@ public class Utils {
             line = removeUnwantedCommas(line);
             if(line != null) {
                 String[] fields = line.split(",");
-                System.out.println(fields[5]);
                 String[] ints = fields[5].split("-");
-                System.out.println(ints.length);
                 String month = ints[1];
                 int year = Integer.parseInt(ints[0]);
                 output.add(new Time(month, year));

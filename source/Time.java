@@ -24,15 +24,12 @@ public class Time {
     }
     public Time(){
         this.year = 2020;
-        this.month = "January";
+        this.month = "Jan";
     }
 
     @Override
     public String toString() {
-        return "Time{" +
-                "year=" + year +
-                ", month='" + month + '\'' +
-                '}';
+        return  year + " " + month;
     }
 
     @Override
