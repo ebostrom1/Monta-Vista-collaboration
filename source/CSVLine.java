@@ -1,6 +1,6 @@
 public class CSVLine {
     Time time;
-    int education;
+    Double education;
     int crime;
     double unemployment;
     int count;
@@ -13,7 +13,7 @@ public class CSVLine {
         return time;
     }
 
-    public void setEducation(int education) {
+    public void setEducation(double education) {
         this.education = education;
     }
 

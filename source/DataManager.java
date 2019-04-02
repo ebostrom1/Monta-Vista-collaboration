@@ -26,12 +26,13 @@ public class DataManager {
             CSVData.get(t).addCrime();
         }
     }
-    public void setEducationData(Time time, int numberOfStudentsWithHighSchoolEducation){
-        if(!CSVData.containsKey(time)){
-            CSVData.put(time, new CSVLine(time));
+    public void setEducationData(int year, double numberOfStudentsWithHighSchoolEducation){
+        for(Map.Entry<Time ,CSVLine> entry: CSVData.entrySet()){
+            if (entry.getKey().getYear() == year)
+                entry.getValue().setEducation(numberOfStudentsWithHighSchoolEducation);
         }
-        CSVData.get(time).setEducation(numberOfStudentsWithHighSchoolEducation);
     }
+
     public String printSortCSV(){
         StringBuilder output = new StringBuilder();
         for (int i = 0; i < CSVData.size(); i++) {

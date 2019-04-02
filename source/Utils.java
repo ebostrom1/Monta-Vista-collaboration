@@ -24,7 +24,54 @@ public class Utils {
         return output.toString();
     }
 
-    public static ArrayList<Unemployment> parseUnemployed
+    public static ArrayList<Unemployment> parseUnemployed(String input){
+        ArrayList<Unemployment> output = new ArrayList<>();
+        input = removeUnwantedChars(input);
+        input = removeUnwantedCommas(input);
+        String[] lines = input.split("\n");
+        for (String line : lines) {
+            String[] fields= line.split(",");
+            int year = Integer.parseInt(fields[0]);
+            for (int i = 0; i < fields.length; i++) {
+                String month = "";
+                if(i == 1) month=("Jan");
+                if(i == 2) month=("Feb");
+                if(i == 3) month=("Mar");
+                if(i == 4) month=("Apr");
+                if(i == 5) month=("May");
+                if(i == 6) month=("Jun");
+                if(i == 7) month=("Jul");
+                if(i == 8) month=("Aug");
+                if(i == 9) month=("Sep");
+                if(i == 10)month=("Oct");
+                if(i == 11)month=("Nov");
+                if(i == 12)month=("Dec");
+                double unemplymentRate = Double.parseDouble(fields[i]);
+                Time time = new Time(month, year);
+                output.add(new Unemployment(time, unemplymentRate));
+            }
+
+        }
+        return output;
+    }
+    public static ArrayList<Time> parseCrime (String input){
+        ArrayList<Time> output = new ArrayList<>();
+        input = removeUnwantedChars(input);
+        String[] lines = input.split("\n");
+        for (String line : lines) {
+            line = removeUnwantedCommas(line);
+            if(line != null) {
+                String[] fields = line.split(",");
+                System.out.println(fields[5]);
+                String[] ints = fields[5].split("-");
+                System.out.println(ints.length);
+                String month = ints[1];
+                int year = Integer.parseInt(ints[0]);
+                output.add(new Time(month, year));
+            }
+        }
+        return output;
+    }
 
     private static String removeUnwantedChars(String input){
         return input.replaceAll("%","").replaceAll(" ","");

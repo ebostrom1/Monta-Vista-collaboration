@@ -1,21 +1,21 @@
 import java.util.Objects;
 
 public class Time {
-    int year;
-    String month;
+    private int year;
+    private String month;
     public Time(int month, int year){
-        if(month == 1) this.month=("January");
-        if(month == 2) this.month=("Febuary ");
-        if(month == 3) this.month=("March ");
-        if(month == 4) this.month=("April ");
-        if(month == 5) this.month=("May ");
-        if(month == 6) this.month=("June ");
-        if(month == 7) this.month=("July ");
-        if(month == 8) this.month=("August ");
-        if(month == 9) this.month=("September ");
-        if(month == 10) this.month=("October ");
-        if(month == 11) this.month=("November ");
-        if(month == 12) this.month=("December ");
+        if(month == 1) this.month=("Jan");
+        if(month == 2) this.month=("Feb");
+        if(month == 3) this.month=("Mar");
+        if(month == 4) this.month=("Apr");
+        if(month == 5) this.month=("May");
+        if(month == 6) this.month=("Jun");
+        if(month == 7) this.month=("Jul");
+        if(month == 8) this.month=("Aug");
+        if(month == 9) this.month=("Sep");
+        if(month == 10) this.month=("Oct");
+        if(month == 11) this.month=("Nov");
+        if(month == 12) this.month=("Dec");
         this.year = year;
     }
     public Time(String month, int year){
@@ -45,19 +45,26 @@ public class Time {
     }
     public int comparableTime(){
         int numMonth =0;
-        if(month.equals("January")) numMonth = 1;
-        if(month.equals("Febuary")) numMonth = 2;
-        if(month.equals("March")) numMonth = 3;
-        if(month.equals("April")) numMonth = 4;
+        if(month.equals("Jan")) numMonth = 1;
+        if(month.equals("Feb")) numMonth = 2;
+        if(month.equals("Mar")) numMonth = 3;
+        if(month.equals("Apr")) numMonth = 4;
         if(month.equals("May")) numMonth = 5;
-        if(month.equals("June")) numMonth = 6;
-        if(month.equals("July")) numMonth = 7;
-        if(month.equals("August")) numMonth = 8;
-        if(month.equals("September")) numMonth = 9;
-        if(month.equals("October")) numMonth = 10;
-        if(month.equals("November")) numMonth = 11;
-        if(month.equals("December")) numMonth = 12;
+        if(month.equals("Jun")) numMonth = 6;
+        if(month.equals("Jul")) numMonth = 7;
+        if(month.equals("Aug")) numMonth = 8;
+        if(month.equals("Sep")) numMonth = 9;
+        if(month.equals("Oct")) numMonth = 10;
+        if(month.equals("Nov")) numMonth = 11;
+        if(month.equals("Dec")) numMonth = 12;
         return year*100+ numMonth;
     }
 
+    public int getYear() {
+        return year;
+    }
+
+    public String getMonth() {
+        return month;
+    }
 }
