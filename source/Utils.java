@@ -63,7 +63,7 @@ public class Utils {
             if(line != null) {
                 String[] fields = line.split(",");
                 String[] ints = fields[5].split("-");
-                String month = ints[1];
+                int month = Integer.parseInt(ints[1]);
                 int year = Integer.parseInt(ints[0]);
                 output.add(new Time(month, year));
             }

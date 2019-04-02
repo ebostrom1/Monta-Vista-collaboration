@@ -23,6 +23,7 @@ public class DataManager {
             if(!CSVData.containsKey(t)){
                 CSVData.put(t, new CSVLine(t));
             }
+            System.out.println(CSVData.get(t));
             CSVData.get(t).addCrime();
         }
     }

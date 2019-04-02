@@ -40,6 +40,12 @@ public class Time {
         return year == time.year &&
                 Objects.equals(month, time.month);
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(year, month);
+    }
+
     public int comparableTime(){
         int numMonth =0;
         if(month.equals("Jan")) numMonth = 1;
